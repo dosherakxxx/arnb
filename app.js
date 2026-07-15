@@ -268,17 +268,14 @@ if (vcardBtn) {
   });
 })();
 
-const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
-  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
 let lenis = null;
-if (window.Lenis) {
+if (window.Lenis && !isTouch) {
   lenis = new Lenis({
     lerp: 0.09,
     smoothWheel: true,
-    syncTouch: !isIOS,
-    syncTouchLerp: 0.075,
-    touchInertiaMultiplier: 40,
+    smoothTouch: false,
   });
   lenis.on("scroll", onScrollHeader);
   if (window.gsap) {
