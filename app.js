@@ -1,11 +1,3 @@
-/* =====================================================================
-   ALATAU CITY — логика: i18n, прелоадер, курсор, Lenis, GSAP
-   Тексты правь в объекте I18N. Ключ = data-i18n в HTML.
-   ===================================================================== */
-
-/* ---------------------------------------------------------------------
-   1. СЛОВАРЬ (имитация JSON): ru / en / kr / cn
-   --------------------------------------------------------------------- */
 const I18N = {
   ru: {
     "hero.eyebrow": "Город опережающего развития",
@@ -184,9 +176,6 @@ const I18N = {
   },
 };
 
-/* ---------------------------------------------------------------------
-   2. i18n
-   --------------------------------------------------------------------- */
 const langButtons = document.querySelectorAll(".lang-btn");
 let langSwapping = false;
 
@@ -201,18 +190,17 @@ function setTexts(lang) {
   try { localStorage.setItem("alatau_lang", lang); } catch (e) {}
 }
 
-// animate=true - плавный fade: текст гаснет, меняется на новый, проявляется.
 function applyLang(lang, animate) {
   if (!I18N[lang]) return;
   const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!animate || rm) { setTexts(lang); return; }
   if (langSwapping) return;
   langSwapping = true;
-  document.body.classList.add("lang-fading");      // [data-i18n] → opacity 0
+  document.body.classList.add("lang-fading");
   setTimeout(() => {
-    setTexts(lang);                                 // подмена, пока не видно
+    setTexts(lang);
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
-    document.body.classList.remove("lang-fading");  // проявляем обратно
+    document.body.classList.remove("lang-fading");
     langSwapping = false;
   }, 360);
 }
@@ -225,23 +213,17 @@ langButtons.forEach((btn) => btn.addEventListener("click", () => applyLang(btn.d
   applyLang(saved || map[sys] || "ru", false);
 })();
 
-// Прогреть CJK-шрифты заранее - иначе первый переход на KR/CN даёт поздний reflow
-// (шрифт догружается уже после смены текста) и страница дёргается.
 if (document.fonts && document.fonts.load) {
   ["400 1rem \"Noto Sans SC\"", "700 1rem \"Noto Sans SC\"", "400 1rem \"Noto Sans KR\"", "700 1rem \"Noto Sans KR\""]
     .forEach((f) => { try { document.fonts.load(f); } catch (e) {} });
 }
 
-/* ---------------------------------------------------------------------
-   3. Год, шапка при скролле, vCard
-   --------------------------------------------------------------------- */
 document.getElementById("year").textContent = new Date().getFullYear();
 
 const header = document.getElementById("header");
 const onScrollHeader = () => header.classList.toggle("scrolled", window.scrollY > 40);
 onScrollHeader();
 
-// vCard-кнопка удалена из тихого футера. Блок оставлен на случай возврата кнопки.
 const vcardBtn = document.getElementById("vcardBtn");
 if (vcardBtn) {
   vcardBtn.addEventListener("click", () => {
@@ -258,9 +240,6 @@ if (vcardBtn) {
   });
 }
 
-/* ---------------------------------------------------------------------
-   4. Прелоадер: счётчик 00 → 100, потом скрыть
-   --------------------------------------------------------------------- */
 (function preloader() {
   const el = document.getElementById("preloader");
   const cnt = document.getElementById("preCount");
@@ -273,9 +252,6 @@ if (vcardBtn) {
   }, 90);
 })();
 
-/* ---------------------------------------------------------------------
-   5. Кастомный курсор (десктоп)
-   --------------------------------------------------------------------- */
 (function cursor() {
   const dot = document.getElementById("cursor");
   if (!dot || window.matchMedia("(hover: none)").matches) return;
@@ -292,20 +268,19 @@ if (vcardBtn) {
   });
 })();
 
-/* ---------------------------------------------------------------------
-   6. Lenis — мягкий скролл
-   --------------------------------------------------------------------- */
+const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
 let lenis = null;
 if (window.Lenis) {
   lenis = new Lenis({
-    lerp: 0.1,                    // плавное следование, не зависит от FPS - ровно и на слабых экранах
+    lerp: 0.09,
     smoothWheel: true,
-    syncTouch: true,              // ГЛАВНОЕ: плавный инерционный скролл на тач-экранах (мобайл)
-    syncTouchLerp: 0.1,
-    touchInertiaMultiplier: 18,
+    syncTouch: !isIOS,
+    syncTouchLerp: 0.075,
+    touchInertiaMultiplier: 40,
   });
   lenis.on("scroll", onScrollHeader);
-  // единый цикл через gsap.ticker - синхронно со ScrollTrigger, без второго rAF (меньше джанка)
   if (window.gsap) {
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -317,25 +292,18 @@ if (window.Lenis) {
   addEventListener("scroll", onScrollHeader, { passive: true });
 }
 
-/* ---------------------------------------------------------------------
-   7. GSAP + ScrollTrigger
-   --------------------------------------------------------------------- */
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (window.gsap && window.ScrollTrigger && !reduceMotion) {
   gsap.registerPlugin(ScrollTrigger);
   if (lenis) lenis.on("scroll", ScrollTrigger.update);
 
-  // КРИТИЧНО: пересчитать позиции триггеров после того, как ленивые картинки
-  // подгрузятся и сдвинут лейаут - иначе нижние секции не «проявляются».
   window.addEventListener("load", () => ScrollTrigger.refresh());
   document.querySelectorAll("img").forEach((img) => {
     if (!img.complete) img.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
   });
-  // и ещё раз после скрытия прелоадера, когда лейаут стабилен
   setTimeout(() => ScrollTrigger.refresh(), 1800);
 
-  // 7.1 Hero: заголовок ALATAU — побуквенный вылет из-под маски
   (function heroLetters() {
     const line = document.querySelector(".hero-title .line");
     if (!line) return;
@@ -351,24 +319,19 @@ if (window.gsap && window.ScrollTrigger && !reduceMotion) {
   })();
   gsap.from([".hero-top", ".hero-tag", ".hero-bottom"], { y: 24, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.12, delay: 1.25 });
 
-  // 7.2 Hero: плавный зум рендера при скролле (scale 1.18 → 1)
   gsap.to(".hero-bg", { scale: 1, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
-  // 7.3 Параллакс картинок (районы/локация/feature)
   gsap.utils.toArray("[data-parallax]").forEach((img) => {
     gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: "none", scrollTrigger: { trigger: img, start: "top bottom", end: "bottom top", scrub: true } });
   });
-  // 7.4 Параллакс полосы-панорамы (сильнее)
   gsap.utils.toArray("[data-parallax-band]").forEach((img) => {
     gsap.fromTo(img, { yPercent: -12 }, { yPercent: 6, ease: "none", scrollTrigger: { trigger: img, start: "top bottom", end: "bottom top", scrub: true } });
   });
 
-  // 7.5 Появление блоков — старт как только элемент входит снизу (без «пустых» карточек)
   gsap.utils.toArray("[data-reveal]").forEach((el) => {
     gsap.fromTo(el, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top bottom-=60" } });
   });
 
-  // 7.6 Счётчики цифр (с поддержкой десятичных)
   gsap.utils.toArray("[data-count]").forEach((el) => {
     const end = parseFloat(el.getAttribute("data-count"));
     const dec = parseInt(el.getAttribute("data-dec") || "0", 10);

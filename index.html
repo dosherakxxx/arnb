@@ -1,14 +1,3 @@
-<!--
-  ALATAU CITY — сайт-визитка проекта мастер-плана
-  Герой сайта - сам город Alatau. Персоны - штаб проекта (второстепенно).
-  Стек: чистый HTML/CSS/JS + GSAP(ScrollTrigger) + Lenis (CDN)
-
-  Рендеры: официальные, лежат локально в /assets (скачаны с alatau.city).
-  Как менять:
-    - тексты      → объект I18N в app.js (ключ = data-i18n)
-    - картинки    → /assets/*.webp  и  переменные --img-* в style.css
-    - контакты    → секция footer ниже 
--->
 <!doctype html>
 <html lang="ru">
 <head>
@@ -20,17 +9,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Noto Sans: латиница/кириллица + заготовки CJK (KR/SC) -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ===== кастомный курсор (десктоп) ===== -->
   <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-  <!-- ===== прелоадер ===== -->
   <div class="preloader" id="preloader">
     <div class="preloader-inner">
       <span class="preloader-word">ALATAU</span>
@@ -38,7 +24,6 @@
     </div>
   </div>
 
-  <!-- ========================= HEADER ========================= -->
   <header class="site-header" id="header">
     <div class="header-inner">
       <a class="logo" href="#top" aria-label="Alatau City">
@@ -60,7 +45,6 @@
 
   <main id="top">
 
-    <!-- ========================= HERO — ГОРОД ========================= -->
     <section class="hero" id="hero">
       <div class="hero-media">
         <div class="hero-bg" data-zoom></div>
@@ -90,7 +74,6 @@
       </div>
     </section>
 
-    <!-- ========================= МАНИФЕСТ ========================= -->
     <section class="section manifest" id="about">
       <div class="section-head">
         <span class="index">01</span>
@@ -102,7 +85,6 @@
       </div>
     </section>
 
-    <!-- ========================= МАСШТАБ / ЦИФРЫ ========================= -->
     <section class="section scale" id="scale">
       <div class="section-head">
         <span class="index">02</span>
@@ -145,7 +127,6 @@
       </div>
     </section>
 
-    <!-- ========================= ПОЛОСА-РЕНДЕР (панорама) ========================= -->
     <section class="band" id="band">
       <div class="band-media">
         <img data-parallax-band data-img-reveal src="assets/about_blue.webp" alt="Панорама города Alatau вдоль центральной оси" />
@@ -156,7 +137,6 @@
       </div>
     </section>
 
-    <!-- ========================= ЛОКАЦИЯ / КОРИДОРЫ ========================= -->
     <section class="section location" id="location">
       <div class="section-head">
         <span class="index">03</span>
@@ -173,7 +153,6 @@
       </div>
     </section>
 
-    <!-- ========================= РАЙОНЫ ========================= -->
     <section class="section districts" id="districts">
       <div class="section-head">
         <span class="index">04</span>
@@ -208,7 +187,6 @@
       </div>
     </section>
 
-    <!-- ========================= ЭТАПЫ / ТАЙМЛАЙН ========================= -->
     <section class="section timeline" id="timeline">
       <div class="section-head">
         <span class="index">05</span>
@@ -243,7 +221,6 @@
       </ol>
     </section>
 
-    <!-- ========================= МОБИЛЬНОСТЬ (рендер аэропорта) ========================= -->
     <section class="feature" id="mobility">
       <figure class="feature-media">
         <img data-parallax data-img-reveal src="assets/about_center.webp" alt="Транспортный хаб Alatau" loading="lazy" />
@@ -256,9 +233,6 @@
       </div>
     </section>
 
-    <!-- ========================= КОМАНДА (плейсхолдеры) =========================
-         Пустые карточки-заглушки. Заказчику показать, как выглядит блок.
-         Портрет → вставить <img> вместо .portrait-tag. Имена → заменить (Фамилия Имя). -->
     <section class="section team" id="team">
       <div class="section-head">
         <span class="index">07</span>
@@ -289,7 +263,6 @@
       </div>
     </section>
 
-    <!-- ========================= FOOTER (тихий, минимальный) ========================= -->
     <footer class="site-footer" id="contact">
       <div class="footer-row">
         <a class="logo" href="#top" aria-label="Alatau City">

@@ -1,16 +1,10 @@
-/* =====================================================================
-   ALATAU CITY — премиальная визитка проекта
-   Швейцарский минимализм. Монохром + тёплый бежевый акцент.
-   Герой - город. Правь переменные в :root.
-   ===================================================================== */
-
 :root {
-  --bg:      #0b0b0d;   /* глубокий графит-чёрный */
-  --bg-2:    #101013;   /* блоки чуть светлее */
-  --ink:     #f3f2ec;   /* тёплый белый */
-  --ink-dim: #86867f;   /* приглушённый серый */
-  --line:    #23232a;   /* тонкие чертёжные линии */
-  --accent:  #c8b7a0;   /* благородный бежевый */
+  --bg:      #0b0b0d;
+  --bg-2:    #101013;
+  --ink:     #f3f2ec;
+  --ink-dim: #86867f;
+  --line:    #23232a;
+  --accent:  #c8b7a0;
 
   --font: "Noto Sans", "Noto Sans KR", "Noto Sans SC", system-ui, sans-serif;
 
@@ -18,12 +12,10 @@
   --gap:   clamp(56px, 9vw, 160px);
   --maxw:  1680px;
 
-  /* Официальный рендер центра города (локальный файл) */
   --img-hero: url("assets/about_cover.webp");
 }
 html[lang="cn"], html[lang="kr"] { --font: "Noto Sans SC", "Noto Sans KR", "Noto Sans", sans-serif; }
 
-/* ------------------------- reset ------------------------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -37,7 +29,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--accent); color: var(--bg); }
 
-/* ------------------------- курсор (десктоп) ------------------------- */
 .cursor {
   position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
   width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
@@ -47,7 +38,6 @@ a { color: inherit; text-decoration: none; }
 .cursor.is-hover { width: 46px; height: 46px; background: var(--ink); }
 @media (hover: none) { .cursor { display: none; } }
 
-/* ------------------------- прелоадер ------------------------- */
 .preloader {
   position: fixed; inset: 0; z-index: 9000; background: var(--bg);
   display: flex; align-items: flex-end; justify-content: space-between;
@@ -58,7 +48,6 @@ a { color: inherit; text-decoration: none; }
 .preloader-word { font-size: clamp(2rem, 9vw, 7rem); font-weight: 600; letter-spacing: -.02em; }
 .preloader-count { font-size: clamp(2rem, 9vw, 7rem); font-weight: 300; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
 
-/* ------------------------- HEADER ------------------------- */
 .site-header {
   position: fixed; inset: 0 0 auto 0; z-index: 100;
   border-bottom: 1px solid transparent;
@@ -84,9 +73,8 @@ a { color: inherit; text-decoration: none; }
 .lang-btn.is-active { color: var(--accent); }
 .lang-sep { color: var(--line); font-size: 12px; }
 
-/* ------------------------- HERO (город) ------------------------- */
 .hero {
-  position: relative; min-height: 100svh;   /* svh - корректно на iOS Safari */
+  position: relative; min-height: 100svh;
   display: grid; grid-template-rows: auto 1fr auto;
   padding: clamp(90px, 12vh, 150px) var(--pad-x) clamp(28px, 5vh, 56px);
   overflow: hidden;
@@ -114,7 +102,7 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(4rem, 22vw, 20rem);
 }
 .hero-tag {
-  margin-top: 22px; max-width: 30ch; min-height: 4.6em;   /* застолбить высоту - текст языков разной длины не двигает заголовок */
+  margin-top: 22px; max-width: 30ch; min-height: 4.6em;
   font-size: clamp(1rem, 2.2vw, 1.4rem); color: var(--ink); opacity: .82; font-weight: 300;
 }
 .hero-bottom { border-top: 1px solid rgba(255,255,255,.14); padding-top: 18px; }
@@ -122,19 +110,16 @@ a { color: inherit; text-decoration: none; }
 .hero-ticker i { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); display: inline-block; }
 .hero-scroll { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); opacity: .7; white-space: nowrap; }
 
-/* ------------------------- секции ------------------------- */
 .section { max-width: var(--maxw); margin: 0 auto; padding: var(--gap) var(--pad-x); border-top: 1px solid var(--line); }
 .section-head, .footer-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px, 5vw, 64px); }
 .index { font-size: 12px; letter-spacing: .1em; color: var(--accent); font-variant-numeric: tabular-nums; }
 .section-label { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-dim); }
 
-/* --- манифест: 2 колонки, левая - лид-абзац, правая - крупное заявление --- */
 .manifest-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(28px, 6vw, 100px); align-items: start; }
 .manifest-kicker { color: var(--ink-dim); font-size: clamp(1rem, 1.5vw, 1.2rem); line-height: 1.55; max-width: 34ch; padding-top: .6em; }
 .manifest-text { font-size: clamp(1.7rem, 4vw, 3.4rem); font-weight: 300; line-height: 1.16; letter-spacing: -.01em; }
 @media (max-width: 900px){ .manifest-grid{ grid-template-columns: 1fr; gap: 24px; } }
 
-/* --- цифры --- */
 .scale-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-left: 1px solid var(--line); border-top: 1px solid var(--line); }
 .stat {
   padding: 30px clamp(16px, 2.2vw, 36px); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
@@ -144,7 +129,6 @@ a { color: inherit; text-decoration: none; }
 .stat-unit { font-size: .32em; color: var(--accent); letter-spacing: .02em; font-weight: 400; }
 .stat-cap { font-size: 13px; color: var(--ink-dim); letter-spacing: .04em; max-width: 22ch; }
 
-/* --- полоса-панорама --- */
 .band { position: relative; overflow: hidden; border-top: 1px solid var(--line); }
 .band-media { height: clamp(340px, 60vh, 640px); overflow: hidden; }
 .band-media img { width: 100%; height: 118%; object-fit: cover; will-change: transform; }
@@ -156,17 +140,15 @@ a { color: inherit; text-decoration: none; }
 .band-caption .index { color: var(--accent); }
 .band-caption p { font-size: clamp(.9rem, 1.6vw, 1.05rem); }
 
-/* --- локация --- */
 .location-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(32px, 6vw, 90px); align-items: center; }
 .location-title { font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 400; letter-spacing: -.01em; line-height: 1.02; margin-bottom: 24px; }
 .location-desc { max-width: 40ch; color: var(--ink-dim); font-size: clamp(1rem, 1.7vw, 1.2rem); }
 .location-map { overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 9; background: var(--bg-2); }
 .location-map img { width: 100%; height: 116%; object-fit: cover; will-change: transform; }
 
-/* --- районы (монохром) --- */
 .district-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .district { position: relative; background: var(--bg); padding: clamp(24px, 2.6vw, 40px); min-height: 300px; display: flex; flex-direction: column; overflow: hidden; transition: background .5s ease; }
-.district::before { /* тонкая линия-акцент, «прочерчивается» на ховере */
+.district::before {
   content: ""; position: absolute; top: 0; left: 0; height: 1px; width: 100%; background: var(--accent);
   transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s cubic-bezier(.22,1,.36,1);
 }
@@ -176,13 +158,11 @@ a { color: inherit; text-decoration: none; }
 .district-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--ink-dim); background: transparent; transition: background .4s, border-color .4s; }
 .district:hover .district-dot { background: var(--accent); border-color: var(--accent); }
 .district-idx { font-size: 12px; letter-spacing: .16em; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
-/* высокая специфичность - чтобы правило [data-i18n]{transition:opacity} не убивало transform */
 .district .district-name { margin: 40px 0 8px; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -.01em; transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .35s ease; }
 .district:hover .district-name { transform: translateX(10px); }
 .district-tag { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 18px; }
 .district-desc { font-size: 14px; color: var(--ink-dim); line-height: 1.55; }
 
-/* --- таймлайн этапов --- */
 .tl-list { list-style: none; }
 .tl-item {
   display: grid; grid-template-columns: minmax(140px, 22%) 1px 1fr;
@@ -196,7 +176,6 @@ a { color: inherit; text-decoration: none; }
 .tl-name { font-size: clamp(1.3rem, 2.6vw, 2rem); font-weight: 500; margin-bottom: 12px; letter-spacing: -.01em; }
 .tl-desc { max-width: 46ch; color: var(--ink-dim); font-size: clamp(1rem, 1.6vw, 1.15rem); }
 
-/* --- feature (рендер + текст) --- */
 .feature { position: relative; border-top: 1px solid var(--line); min-height: 90svh; display: flex; align-items: flex-end; overflow: hidden; }
 .feature-media { position: absolute; inset: 0; }
 .feature-media img { width: 100%; height: 118%; object-fit: cover; will-change: transform; }
@@ -206,7 +185,6 @@ a { color: inherit; text-decoration: none; }
 .feature-title { font-size: clamp(2.2rem, 6vw, 5rem); font-weight: 500; letter-spacing: -.02em; line-height: .98; margin-bottom: 20px; }
 .feature-desc { max-width: 44ch; color: var(--ink); opacity: .85; font-size: clamp(1rem, 1.8vw, 1.25rem); }
 
-/* --- команда (плейсхолдеры) --- */
 .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .member { background: var(--bg); padding: clamp(20px, 2.2vw, 30px); }
 .portrait {
@@ -218,7 +196,6 @@ a { color: inherit; text-decoration: none; }
 .member-role { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
 .member-name { font-size: 1.05rem; font-weight: 500; line-height: 1.25; color: var(--ink-dim); }
 
-/* ------------------------- FOOTER (тихий) ------------------------- */
 .site-footer { max-width: var(--maxw); margin: 0 auto; padding: clamp(40px, 6vw, 80px) var(--pad-x) 36px; border-top: 1px solid var(--line); }
 .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: clamp(32px, 5vw, 56px); }
 .footer-mini { display: flex; gap: clamp(16px, 2.5vw, 36px); }
@@ -226,15 +203,10 @@ a { color: inherit; text-decoration: none; }
 .footer-mini a:hover { color: var(--accent); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .06em; color: var(--ink-dim); }
 
-/* ------------------------- reveal ------------------------- */
 [data-reveal] { opacity: 0; }
-/* плавная смена языка (important - перебить inline-opacity, что оставляет GSAP на reveal-элементах) */
 [data-i18n] { transition: opacity .35s ease; }
 .lang-fading [data-i18n] { opacity: 0 !important; }
 
-/* =====================================================================
-   АДАПТИВ (особое внимание iOS Safari)
-   ===================================================================== */
 @media (max-width: 1080px) {
   .scale-grid { grid-template-columns: repeat(2, 1fr); }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
@@ -248,7 +220,6 @@ a { color: inherit; text-decoration: none; }
   .hero-top { flex-direction: column; align-items: flex-start; gap: 4px; min-height: 3.7em; }
   .hero-bottom { min-height: 3em; align-items: flex-end; }
 
-  /* мобильная оптимизация: убрать дорогой blur шапки (пере-рисовка каждый кадр при скролле) */
   .site-header.scrolled { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(11,11,13,.92); }
   .hero-coords { opacity: .7; font-size: 11px; }
   .hero-ticker { gap: 10px; font-size: 10px; }
