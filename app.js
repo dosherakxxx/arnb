@@ -202,8 +202,6 @@ function setTexts(lang) {
 }
 
 // animate=true - плавный fade: текст гаснет, меняется на новый, проявляется.
-// Без компенсации скролла: она держала один блок, но сам сдвиг страницы читался
-// как прыжок. Простой fade ровный для RU/EN; CN/KR слегка реверстнутся - это ок.
 function applyLang(lang, animate) {
   if (!I18N[lang]) return;
   const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -299,10 +297,22 @@ if (vcardBtn) {
    --------------------------------------------------------------------- */
 let lenis = null;
 if (window.Lenis) {
-  lenis = new Lenis({ duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
-  const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
-  requestAnimationFrame(raf);
+  lenis = new Lenis({
+    lerp: 0.1,                    // плавное следование, не зависит от FPS - ровно и на слабых экранах
+    smoothWheel: true,
+    syncTouch: true,              // ГЛАВНОЕ: плавный инерционный скролл на тач-экранах (мобайл)
+    syncTouchLerp: 0.1,
+    touchInertiaMultiplier: 18,
+  });
   lenis.on("scroll", onScrollHeader);
+  // единый цикл через gsap.ticker - синхронно со ScrollTrigger, без второго rAF (меньше джанка)
+  if (window.gsap) {
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
 } else {
   addEventListener("scroll", onScrollHeader, { passive: true });
 }
