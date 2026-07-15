@@ -1,0 +1,318 @@
+<!--
+  ALATAU CITY — сайт-визитка проекта мастер-плана
+  Герой сайта - сам город Alatau. Персоны - штаб проекта (второстепенно).
+  Стек: чистый HTML/CSS/JS + GSAP(ScrollTrigger) + Lenis (CDN)
+
+  Рендеры: официальные, лежат локально в /assets (скачаны с alatau.city).
+  Как менять:
+    - тексты      → объект I18N в app.js (ключ = data-i18n)
+    - картинки    → /assets/*.webp  и  переменные --img-* в style.css
+    - контакты    → секция footer ниже
+-->
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <title>ALATAU — Город опережающего развития</title>
+  <meta name="description" content="Alatau — новый линейный город между Алматы и Конаевом. Мастер-план до 2050 года." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Noto Sans: латиница/кириллица + заготовки CJK (KR/SC) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== кастомный курсор (десктоп) ===== -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <!-- ===== прелоадер ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <span class="preloader-word">ALATAU</span>
+      <span class="preloader-count" id="preCount">00</span>
+    </div>
+  </div>
+
+  <!-- ========================= HEADER ========================= -->
+  <header class="site-header" id="header">
+    <div class="header-inner">
+      <a class="logo" href="#top" aria-label="Alatau City">
+        <span class="logo-mark">◨</span>
+        <span class="logo-text">ALATAU<span class="logo-thin">CITY</span></span>
+      </a>
+
+      <nav class="lang-switch" aria-label="Language">
+        <button class="lang-btn is-active" data-lang="ru">RU</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" data-lang="kr">KR</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" data-lang="cn">CN</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ========================= HERO — ГОРОД ========================= -->
+    <section class="hero" id="hero">
+      <div class="hero-media">
+        <div class="hero-bg" data-zoom></div>
+        <div class="hero-scrim"></div>
+      </div>
+
+      <div class="hero-top">
+        <span class="eyebrow" data-i18n="hero.eyebrow">Город опережающего развития</span>
+        <span class="hero-coords">43°12′N · 77°03′E · KZ</span>
+      </div>
+
+      <div class="hero-center">
+        <h1 class="hero-title">
+          <span class="line" aria-hidden="true">ALATAU</span>
+        </h1>
+        <p class="hero-tag" data-i18n="hero.tag">Новый город между Алматы и Конаевом. Мастер-план 2024 – 2050.</p>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="hero-ticker">
+          <span data-i18n="hero.t1">88 000 га</span><i></i>
+          <span data-i18n="hero.t2">1,87 млн жителей</span><i></i>
+          <span data-i18n="hero.t3">4 района</span><i></i>
+          <span data-i18n="hero.t4">СЭЗ · 0% налогов</span>
+        </div>
+        <span class="hero-scroll" data-i18n="hero.scroll">Листайте ↓</span>
+      </div>
+    </section>
+
+    <!-- ========================= МАНИФЕСТ ========================= -->
+    <section class="section manifest" id="about">
+      <div class="section-head">
+        <span class="index">01</span>
+        <span class="section-label" data-i18n="about.label">О городе</span>
+      </div>
+      <div class="manifest-grid">
+        <p class="manifest-kicker" data-reveal data-i18n="about.kicker">Alatau — город опережающего развития. Новая точка на карте Казахстана, между Алматы и Конаевом.</p>
+        <p class="manifest-text" data-reveal data-i18n="about.text">Не расширение мегаполиса. Отдельный линейный город на 88 000 гектаров, спроектированный с нуля - как единая экономическая зона на перекрёстке Европы и Китая.</p>
+      </div>
+    </section>
+
+    <!-- ========================= МАСШТАБ / ЦИФРЫ ========================= -->
+    <section class="section scale" id="scale">
+      <div class="section-head">
+        <span class="index">02</span>
+        <span class="section-label" data-i18n="scale.label">Масштаб</span>
+      </div>
+
+      <div class="scale-grid">
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="2050" data-plain="1">2050</span></span>
+          <span class="stat-cap" data-i18n="scale.s1">Горизонт мастер-плана</span>
+        </article>
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="1.87" data-dec="2">1.87</span> <span class="stat-unit" data-i18n="scale.u_mln">млн</span></span>
+          <span class="stat-cap" data-i18n="scale.s2">Жителей к 2050 году</span>
+        </article>
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="97.9" data-dec="1">97.9</span> <span class="stat-unit" data-i18n="scale.u_ha">тыс. га</span></span>
+          <span class="stat-cap" data-i18n="scale.s3">Площадь СЭЗ</span>
+        </article>
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="1">1</span> <span class="stat-unit" data-i18n="scale.u_mln">млн</span></span>
+          <span class="stat-cap" data-i18n="scale.s4">Рабочих мест</span>
+        </article>
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="4">4</span> <span class="stat-unit" data-i18n="scale.u_mlnp">млн+</span></span>
+          <span class="stat-cap" data-i18n="scale.s5">Туристов в год</span>
+        </article>
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="40">40</span> <span class="stat-unit" data-i18n="scale.u_k">тыс.</span></span>
+          <span class="stat-cap" data-i18n="scale.s6">Студентов</span>
+        </article>
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="55.8" data-dec="1">55.8</span> <span class="stat-unit" data-i18n="scale.u_msqm">млн м²</span></span>
+          <span class="stat-cap" data-i18n="scale.s7">Жилья</span>
+        </article>
+        <article class="stat" data-reveal>
+          <span class="stat-num"><span data-count="2030">2030</span></span>
+          <span class="stat-cap" data-i18n="scale.s8">Первая очередь</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================= ПОЛОСА-РЕНДЕР (панорама) ========================= -->
+    <section class="band" id="band">
+      <div class="band-media">
+        <img data-parallax-band data-img-reveal src="assets/about_blue.webp" alt="Панорама города Alatau вдоль центральной оси" />
+      </div>
+      <div class="band-caption">
+        <span class="index">—</span>
+        <p data-i18n="band.cap">Центральная водно-зелёная ось города. Рендер мастер-плана.</p>
+      </div>
+    </section>
+
+    <!-- ========================= ЛОКАЦИЯ / КОРИДОРЫ ========================= -->
+    <section class="section location" id="location">
+      <div class="section-head">
+        <span class="index">03</span>
+        <span class="section-label" data-i18n="loc.label">Локация</span>
+      </div>
+      <div class="location-grid">
+        <div class="location-text">
+          <h2 class="location-title" data-i18n="loc.title">На перекрёстке Евразии</h2>
+          <p class="location-desc" data-i18n="loc.desc">Между Алматы и Конаевом, у границы с Китаем. Точка сборки транспортных коридоров Европа - Западный Китай: рельс, магистрали, международный аэропорт.</p>
+        </div>
+        <figure class="location-map">
+          <img data-parallax data-img-reveal src="assets/about_text.webp" alt="Карта транспортных коридоров вокруг Alatau" loading="lazy" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- ========================= РАЙОНЫ ========================= -->
+    <section class="section districts" id="districts">
+      <div class="section-head">
+        <span class="index">04</span>
+        <span class="section-label" data-i18n="districts.label">Четыре района</span>
+      </div>
+
+      <div class="district-grid" data-reveal>
+        <article class="district">
+          <div class="district-top"><span class="district-dot"></span><span class="district-idx">01</span></div>
+          <h3 class="district-name" data-i18n="d1.name">Зелёный</h3>
+          <span class="district-tag" data-i18n="d1.tag">Туризм · рекреация</span>
+          <p class="district-desc" data-i18n="d1.desc">Курорт у Капшагая. Парк уровня Disney, трасса Formula 1, ипподром.</p>
+        </article>
+        <article class="district">
+          <div class="district-top"><span class="district-dot"></span><span class="district-idx">02</span></div>
+          <h3 class="district-name" data-i18n="d2.name">Растущий</h3>
+          <span class="district-tag" data-i18n="d2.tag">Индустрия · логистика</span>
+          <p class="district-desc" data-i18n="d2.desc">Производство, склады и международный аэропорт. Ворота грузопотока к Китаю.</p>
+        </article>
+        <article class="district">
+          <div class="district-top"><span class="district-dot"></span><span class="district-idx">03</span></div>
+          <h3 class="district-name" data-i18n="d3.name">Золотой</h3>
+          <span class="district-tag" data-i18n="d3.tag">Наука · образование · медицина</span>
+          <p class="district-desc" data-i18n="d3.desc">Университеты и клиники. Кампусы на 40 000 студентов.</p>
+        </article>
+        <article class="district">
+          <div class="district-top"><span class="district-dot"></span><span class="district-idx">04</span></div>
+          <h3 class="district-name" data-i18n="d4.name">Ворота</h3>
+          <span class="district-tag" data-i18n="d4.tag">Финансы · бизнес</span>
+          <p class="district-desc" data-i18n="d4.desc">Офисы, банки и отели у въезда со стороны Алматы. Деловое лицо города.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================= ЭТАПЫ / ТАЙМЛАЙН ========================= -->
+    <section class="section timeline" id="timeline">
+      <div class="section-head">
+        <span class="index">05</span>
+        <span class="section-label" data-i18n="tl.label">Этапы</span>
+      </div>
+
+      <ol class="tl-list">
+        <li class="tl-item" data-reveal>
+          <span class="tl-year">2024</span>
+          <span class="tl-line"></span>
+          <div class="tl-body">
+            <h3 class="tl-name" data-i18n="tl1.name">Основание</h3>
+            <p class="tl-desc" data-i18n="tl1.desc">Указ о создании города. Старт разработки мастер-плана и особой экономической зоны.</p>
+          </div>
+        </li>
+        <li class="tl-item" data-reveal>
+          <span class="tl-year">2030</span>
+          <span class="tl-line"></span>
+          <div class="tl-body">
+            <h3 class="tl-name" data-i18n="tl2.name">Первая очередь</h3>
+            <p class="tl-desc" data-i18n="tl2.desc">Базовая инфраструктура, аэропорт, первые районы и резиденты СЭЗ.</p>
+          </div>
+        </li>
+        <li class="tl-item" data-reveal>
+          <span class="tl-year">2050</span>
+          <span class="tl-line"></span>
+          <div class="tl-body">
+            <h3 class="tl-name" data-i18n="tl3.name">Полный город</h3>
+            <p class="tl-desc" data-i18n="tl3.desc">1,87 млн жителей, 4 района, зрелая экономика на перекрёстке Евразии.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ========================= МОБИЛЬНОСТЬ (рендер аэропорта) ========================= -->
+    <section class="feature" id="mobility">
+      <figure class="feature-media">
+        <img data-parallax data-img-reveal src="assets/about_center.webp" alt="Транспортный хаб Alatau" loading="lazy" />
+        <div class="feature-scrim"></div>
+      </figure>
+      <div class="feature-body">
+        <span class="index">06</span>
+        <h2 class="feature-title" data-i18n="mob.title">Мобильность будущего</h2>
+        <p class="feature-desc" data-i18n="mob.desc">Международный аэропорт, скоростной рельс и магистрали. Пилотная система дрон-такси внутри города.</p>
+      </div>
+    </section>
+
+    <!-- ========================= КОМАНДА (плейсхолдеры) =========================
+         Пустые карточки-заглушки. Заказчику показать, как выглядит блок.
+         Портрет → вставить <img> вместо .portrait-tag. Имена → заменить (Фамилия Имя). -->
+    <section class="section team" id="team">
+      <div class="section-head">
+        <span class="index">07</span>
+        <span class="section-label" data-i18n="team.label">Команда</span>
+      </div>
+
+      <div class="team-grid" data-reveal>
+        <article class="member">
+          <div class="portrait"><span class="portrait-tag">01</span></div>
+          <span class="member-role" data-i18n="t1.role">Руководитель проекта</span>
+          <h3 class="member-name" data-i18n="t.name">(Фамилия Имя)</h3>
+        </article>
+        <article class="member">
+          <div class="portrait"><span class="portrait-tag">02</span></div>
+          <span class="member-role" data-i18n="t2.role">Главный градостроитель</span>
+          <h3 class="member-name" data-i18n="t.name">(Фамилия Имя)</h3>
+        </article>
+        <article class="member">
+          <div class="portrait"><span class="portrait-tag">03</span></div>
+          <span class="member-role" data-i18n="t3.role">Архитектор мастер-плана</span>
+          <h3 class="member-name" data-i18n="t.name">(Фамилия Имя)</h3>
+        </article>
+        <article class="member">
+          <div class="portrait"><span class="portrait-tag">04</span></div>
+          <span class="member-role" data-i18n="t4.role">Транспортный планировщик</span>
+          <h3 class="member-name" data-i18n="t.name">(Фамилия Имя)</h3>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================= FOOTER (тихий, минимальный) ========================= -->
+    <footer class="site-footer" id="contact">
+      <div class="footer-row">
+        <a class="logo" href="#top" aria-label="Alatau City">
+          <span class="logo-mark">◨</span>
+          <span class="logo-text">ALATAU<span class="logo-thin">CITY</span></span>
+        </a>
+        <nav class="footer-mini" aria-label="Links">
+          <a href="https://alatau.city" target="_blank" rel="noopener">alatau.city</a>
+          <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://wa.me/77003025464" target="_blank" rel="noopener">WhatsApp</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="copy">© <span id="year">2026</span> Alatau City Masterplan</span>
+        <span class="credit" data-i18n="contact.credit">Разработка мастер-плана</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
